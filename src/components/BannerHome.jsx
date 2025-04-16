@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
@@ -17,6 +18,16 @@ const BannerHome = () => {
       setCurrentImage((prev) => prev - 1);
     }
   };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (currentImage < BannerData.length - 1) {
+        handleNext();
+      } else {
+        setCurrentImage(0);
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [BannerData, imageURL]);
 
   return (
     <div className="w-full h-full">
@@ -56,7 +67,7 @@ const BannerHome = () => {
               <div className="container mx-auto">
                 <div className=" w-full absolute bottom-0 max-w-md px-3">
                   <h2 className="font-bold text-2xl lg:text-4xl text-white drop-shadow-2xl">
-                    {data.name || data.title}
+                    {data?.name || data?.title}
                   </h2>
                   <p className="text-ellipsis line-clamp-3 my-2">
                     {data.overview}
