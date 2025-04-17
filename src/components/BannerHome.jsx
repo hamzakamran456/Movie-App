@@ -33,7 +33,7 @@ const BannerHome = () => {
     <div className="w-full h-full">
       <div className="flex min-h-full max-h-[95vh] overflow-hidden">
         {BannerData.map((data, index) => {
-          console.log("data", data);
+          {/* console.log("data", data); */}
           return (
             <div
               key={index}
