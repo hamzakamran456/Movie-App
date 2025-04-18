@@ -1,16 +1,25 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const useFetch = (endpoint) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchNowPlayingData = async () => {
+  const fetchData = async () => {
     try {
-      const response = await axios.get("/movie/now_playing");
-      setNowPlayingData(response.data.results);
+      setLoading(true);
+      const response = await axios.get(endpoint);
+      setLoading(false);
+      setData(response.data.results);
     } catch (error) {
       console.log("error", error);
     }
   };
-  return { data,loading };
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return { data, loading };
 };
+
+export default useFetch;
