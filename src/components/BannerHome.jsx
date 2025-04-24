@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
@@ -33,7 +32,6 @@ const BannerHome = () => {
     <div className="w-full h-full">
       <div className="flex min-h-full max-h-[95vh] overflow-hidden">
         {BannerData.map((data, index) => {
-          {/* console.log("data", data); */}
           return (
             <div
               key={index}

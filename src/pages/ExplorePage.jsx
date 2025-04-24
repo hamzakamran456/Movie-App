@@ -9,21 +9,26 @@ const ExplorePage = () => {
   const [pageNo, setPageNo] = useState(1);
   const [data, setData] = useState([]);
   const [totalPageNo, setTotalPageNo] = useState(0);
-  console.log("params", params.explore);
+  // console.log("params", params.explore);
 
   const fetchData = async () => {
     try {
-      let response = await axios.get(`/discover/${params.explore}`, {
-        params: {
-          page: pageNo,
-        },
-      });
-      setData((preve) => {
-        return [...preve, ...response.data.results];
-      });
+      const mediaType = params.explore.match(/^(movie|tv)/)?.[0] || "movie";
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/discover/${mediaType}`,
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
+          },
+          params: {
+            page: pageNo,
+          },
+        }
+      );
+      setData((prev) => [...prev, ...response.data.results]);
       setTotalPageNo(response.data.total_pages);
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
     }
   };
 
