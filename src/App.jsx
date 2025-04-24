@@ -32,13 +32,12 @@ function App() {
   useEffect(() => {
     FetchTrendingData();
     FetchConfiguration();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <main className="pb-14 lg:pb-0">
       <Header />
-      <div className="">
+      <div className="min-h-[90vh]">
         <Outlet />
       </div>
       <Footer />
