@@ -11,8 +11,6 @@ const Header = () => {
   const [searchInput, setSearchInput] = useState(removespace);
   const navigate = useNavigate();
 
-  console.log("location");
-
   useEffect(() => {
     if (searchInput) {
       navigate(`/search?q=${searchInput}`);
