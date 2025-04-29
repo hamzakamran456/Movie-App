@@ -9,34 +9,38 @@ const Card = ({ data, trending, index, media_type }) => {
 
   return (
     <Link
-      to={"/" + resolvedMediaType + data.id}
+      to={`/${resolvedMediaType}/${data.id}`}
       className="w-full min-w-[280px] max-w-[280px] h-82 overflow-hidden rounded relative transform transition-transform duration-300 ease-in-out hover:scale-105"
     >
       {data?.poster_path ? (
         <img
-          src={imageURL + data?.poster_path}
+          src={imageURL + data.poster_path}
+          alt={data.title || data.name}
           className="object-cover w-full h-full"
         />
       ) : (
-        <div className="bg-neutral-900 h-full w-full flex justify-center items-center">
+        <div className="bg-neutral-900 h-full w-full flex justify-center items-center text-white">
           No Image Found
         </div>
       )}
 
-      <div className="absolute top-4">
-        {trending && (
-          <div className="py-1 px-4 bg-black/60 backdrop-blur-3xl rounded-r-full overflow-hidden">
-            #{index} Trending
-          </div>
-        )}
-      </div>
+      {trending && (
+        <div className="absolute top-4 py-1 px-4 bg-black/60 backdrop-blur-3xl rounded-r-full">
+          #{index} Trending
+        </div>
+      )}
+
       <div className="absolute bottom-0 h-16 backdrop-blur-3xl w-full bg-black/60 p-2">
-        <h2 className="text-ellipsis line-clamp-1 text-lg font-semibold">
+        <h2 className="truncate text-lg font-semibold text-white">
           {data.title || data.name}
         </h2>
-        <div className="text-sm text-neutral-400 flex justify-between items-center">
-          <p>{moment(data.release_date).format("MMMM Do YYYY")}</p>
-          <p className="bg-black px-1 rounded-full text-xs">
+        <div className="text-sm text-neutral-300 flex justify-between items-center">
+          <p>
+            {data.release_date
+              ? moment(data.release_date).format("MMMM Do YYYY")
+              : "No Date"}
+          </p>
+          <p className="bg-black px-2 py-0.5 rounded-full text-xs text-white">
             Rating: {Number(data.vote_average).toFixed(1)}
           </p>
         </div>

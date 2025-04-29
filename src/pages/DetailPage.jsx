@@ -1,13 +1,15 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import useFetch from "../hook/useFetch";
 import useFetchDetails from "../hook/useFetchDetails";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import Divider from "../components/Divider";
-import HorizontalScrollCard from "../components/HorizontalScrollCard"
+import HorizontalScrollCard from "../components/HorizontalScrollCard";
 
 const DetailPage = () => {
   const params = useParams();
+
   const imageURL = useSelector((state) => state.movieoData.imageURL);
   const { data } = useFetchDetails(`/${params?.explore}/${params?.id}`);
   const { data: castData } = useFetchDetails(
@@ -15,6 +17,9 @@ const DetailPage = () => {
   );
   const { data: similarData } = useFetch(
     `/${params?.explore}/${params?.id}/similar`
+  );
+  const { data: recommendationData } = useFetch(
+    `/${params?.explore}/${params?.id}/recommendations`
   );
 
   console.log("data", data);
@@ -123,7 +128,16 @@ const DetailPage = () => {
         </div>
       </div>
       <div>
-        <HorizontalScrollCard data={similarData} heading={"Similar "+params?.explore} />
+        <HorizontalScrollCard
+          data={similarData}
+          heading={"Similar " + params?.explore}
+          media_type={params?.explore}
+        />
+        <HorizontalScrollCard
+          data={recommendationData}
+          heading={"Recommendation Data " + params?.explore}
+          media_type={params?.explore}
+        />
       </div>
     </div>
   );
